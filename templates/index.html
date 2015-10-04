@@ -1,0 +1,142 @@
+{% extends "layout.html" %}
+{% block content %}
+
+  <form method="post">
+      <div class="row">
+          <div class="col-sm-8">
+              <div class="panel panel-primary">
+                  <div class="panel-heading">
+                      <h3 class="panel-title">
+                          {% if not selected_conf %}
+                              Start from Scratch
+                          {% else %}
+                              {{ selected_conf }}
+                          {% endif %}
+                      </h3>
+                  </div>
+                  <div class="panel-body">
+
+                      <div class="input-group">
+                          <span class="input-group-addon" id="brewery_input">Brewery</span>
+                          <input id="brewery" type="text" class="form-control col-sm-6" value="{{ brewery }}" aria-describedby="brewery_input" required>
+                      </div>
+
+                      <div class="input-group">
+                          <span class="input-group-addon" id="name_input">Name</span>
+                          <input id="name" type="text" class="form-control" value="{{ name }}" aria-describedby="name_input" required>
+                      </div>
+
+                      <div class="input-group">
+                          <span class="input-group-addon" id="style_input">Style</span>
+                          <input id="style"type="text" class="form-control" value="{{ style }}" aria-describedby="style_input" required>
+                      </div>
+
+                      <div class="input-group">
+                          <span class="input-group-addon" id="abv_input">ABV</span>
+                          <input id="abv" type="text" class="form-control" value="{{ abv }}" aria-describedby="abv_input" required>
+                      </div>
+
+                      <div class="input-group">
+                          <span class="input-group-addon" id="og_input">OG</span>
+                          <input id="og" type="text" class="form-control" value="{{ og }}" aria-describedby="og_input" required>
+                      </div>
+
+                      <div class="input-group">
+                          <span class="input-group-addon" id="fg_input">FG</span>
+                          <input id="fg" type="text" class="form-control" value="{{ fg }}" aria-describedby="fg_input" required>
+                      </div>
+
+                      <div class="input-group">
+                          <span class="input-group-addon" id="ibu_input">IBU</span>
+                          <input id="ibu" type="text" class="form-control" value="{{ ibu }}" aria-describedby="ibu_input" required>
+                      </div>
+
+                      <div class="input-group">
+                          <span class="input-group-addon" id="ebc_input">EBC</span>
+                          <input id="ebc" type="text" class="form-control" value="{{ ebc }}" aria-describedby="ebc_input" required>
+                      </div>
+
+                      <div class="input-group">
+                          <span class="input-group-addon" id="batch_input">Batch</span>
+                          <input id="batch" type="text" class="form-control" value="{{ batch }}" aria-describedby="batch_input" required>
+                      </div>
+
+                      <div class="input-group">
+                          <span class="input-group-addon" id="date_input">Date</span>
+                          <input id="date" type="text" class="form-control" value="{{ date }}" aria-describedby="date_input" required>
+                      </div>
+
+                      <br>
+
+                      <div class="input-group">
+                          <span class="input-group-addon input-group-addon-lg" id="x_input">Labels X-Axis</span>
+                          <input id="labels_x" type="text" class="form-control" value="{{ labels_x }}" aria-describedby="x_input" required>
+                      </div>
+
+                      <div class="input-group">
+                          <span class="input-group-addon input-group-addon-lg" id="y_input">Labels Y-Axis</span>
+                          <input id="labels_y" type="text" class="form-control" value="{{ labels_y }}" aria-describedby="y_input" required>
+                      </div>
+
+                      <div class="input-group">
+                          <span class="input-group-addon input-group-addon-lg" id="cell_input">Cell Width</span>
+                          <input id="cell_width" name="cell_input" type="text" class="form-control" value="{{ cell_width }}" aria-describedby="cell_input" required>
+                      </div>
+
+                       <div class="input-group">
+                          <span class="input-group-addon input-group-addon-lg" id="confname_input">Configuration Name</span>
+                          <input id="confname" type="text" class="form-control" value="{{ confname }}" aria-describedby="confname_input">
+                      </div>
+
+                  </div>
+              </div>
+          </div>
+          <div class="col-sm-4">
+              <div class="panel panel-success">
+                  <div class="panel-heading">
+                      <h3 class="panel-title">Old Configurations</h3>
+                  </div>
+
+                  <div class="list-group" id="listgroup">
+                      {% for config in old_configurations %}
+                          {% if config == selected_conf%}
+                              <a href="/" class="list-group-item active">
+                          {% else %}
+                              <a href="/old/{{ config }}" class="list-group-item">
+                              <span class="trashcan glyphicon glyphicon-trash pull-right" onclick='remove("{{ config }}")'></span>
+                          {% endif %}
+                          {{ config }}</a>
+                      {% endfor %}
+                  </div>
+              </div>
+          </div>
+      </div>
+
+
+
+<!--form method="post" action="{{ url_for('generate') }}">
+    <div class="input-group">
+        <input type="text" class="form-control" placeholder="Recipient's username" aria-describedby="basic-addon2">
+        <span class="input-group-addon" id="basic-addon2">@example.com</span>
+    </div>
+
+    <p><label>Bryggeri:</label> <input type="text" name="brewery" value="{{brewery}}" required></p>
+    <p><label>Namn:</label> <input type="text" name="name"></p>
+    <p><button type="submit">Skapa</button></p>
+</form-->
+
+<div class="form-actions col-sm-2">
+    <button name="action_save" type="submit" class="btn btn-primary" onclick='generate()'>Generate Label</button>
+</div>
+</form>
+
+<div class="form-actions col-sm-2">
+    <a href="/"><button name="action_save" class="btn btn-primary">Clear configuration </button></a>
+</div>
+
+<br>
+<br>
+<br>
+<br>
+
+{% endblock %}

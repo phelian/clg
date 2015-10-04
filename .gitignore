@@ -1,0 +1,6 @@
+*.pkl
+*.pyc
+*.pdf
+history/*.json
+.idea
+TODO

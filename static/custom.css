@@ -1,0 +1,22 @@
+.input-group-addon {
+    min-width:100px;
+    text-align:left;
+}
+
+.input-group-addon-lg {
+    min-width:120px;
+    text-align:left;
+}
+
+.trashcan {
+    display:none;
+}
+
+.trashcan:hover {
+    color:red;
+}
+
+.list-group-item:hover .trashcan {
+    display: inline-block;
+}
+

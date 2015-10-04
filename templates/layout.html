@@ -1,0 +1,93 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <!-- The above 3 meta tags *must* come first in the head; any other head content must come *after* these tags -->
+    <meta name="description" content="">
+    <meta name="author" content="">
+    <link rel="icon" href="../../favicon.ico">
+
+    <title>CLG - Clean Label Generator</title>
+
+    <!-- Bootstrap core CSS -->
+    <link href="/static/bootstrap/css/bootstrap.min.css" rel="stylesheet">
+    <!-- Bootstrap theme -->
+    <link href="/static/bootstrap/css/bootstrap-theme.min.css" rel="stylesheet">
+
+    <!-- Custom theme -->
+    <link href="/static/custom.css" rel="stylesheet">
+    <script type="text/javascript">
+        function remove(input){
+            $.post(
+                "/remove_config/" + input,
+                {},
+                function(data) {
+                    alert("Response: " + data);
+                }
+            );
+        }
+
+        function generate() {
+            var to_post = {
+                    "brewery": document.getElementById("brewery").value,
+                    "name": document.getElementById("name").value,
+                    "style": document.getElementById("style").value,
+                    "abv": document.getElementById("abv").value,
+                    "og": document.getElementById("og").value,
+                    "fg": document.getElementById("fg").value,
+                    "confname": document.getElementById("confname").value,
+                    "cell_width": document.getElementById("cell_width").value,
+                    "batch": document.getElementById("batch").value,
+                    "date": document.getElementById("date").value,
+                    "ibu": document.getElementById("ibu").value,
+                    "ebc": document.getElementById("ebc").value,
+                    "labels_y": document.getElementById("labels_y").value,
+                    "labels_x": document.getElementById("labels_x").value
+            };
+
+            var generate = true;
+            for (var key in to_post) {
+                if (to_post[key] == "" && key != "confname") {
+                    generate = false;
+                    break;
+                }
+            }
+
+            if (generate) {
+                $.post(
+                    "/generate",
+                    JSON.stringify(to_post),
+                    function(data) {
+                        window.location = data;
+                    }
+                );
+            }
+        }
+
+    </script>
+  </head>
+
+  <body role="document">
+    <div class="container theme-showcase" role="main">
+      <!-- Main jumbotron for a primary marketing message or call to action -->
+      <div class="jumbotron">
+        <h1>CLG - Clean Label Generator</h1>
+        <p>Use this webpage to create PDF's with your clean labels.
+        <br>Start from sctrach or load and old configuration.</p>
+      </div>
+
+      {% block content %}{% endblock %}
+
+    </div> <!-- /container -->
+
+
+    <!-- Bootstrap core JavaScript
+    ================================================== -->
+    <!-- Placed at the end of the document so the pages load faster -->
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.3/jquery.min.js"></script>
+    <script src="/static/bootstrap/js/bootstrap.min.js"></script>
+  </body>
+</html>
+
