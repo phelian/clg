@@ -55,11 +55,11 @@ if __name__ == "__main__":
 
         main(label=label_json)
     else:
+        config = {}
         try:
             with open(options.config) as fp:
                 config = json.load(fp)
-        except Exception:
-            print "Failed to open/json parse " + options.config + " as configuration file."
-            sys.exit(1)
+        except Exception, e:
+            print "Failed to open/json parse " + options.config + " as configuration file." + " " + str(e)
 
         main(config=config)

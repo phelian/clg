@@ -11,13 +11,7 @@ class Server():
     def __init__(self, config, pdf):
         self.pdf = pdf
         self.app = Flask(__name__)
-
-        try:
-            with open(config.get("defaults", None)) as fp:
-                self.defaults = json.load(fp)
-        except Exception:
-            self.defaults = {}
-
+        self.defaults = config.get("defaults", {})
         self.host = config.get("host", "127.0.0.1")
         self.port = config.get("port", 5000)
         self.input_path = config.get("stored_configrations", "history/json")
@@ -64,15 +58,18 @@ class Server():
             post_data = request.get_json(force=True)
 
             try:
-                if post_data.get("confname", None):
+                if post_data.get("confname", None) and self.input_path != "":
                     with open(self.input_path + "/" + post_data['confname'] + ".json", "w") as fp:
                         json.dump(post_data, fp)
-                post_data.pop("confname")
-                filename = self.pdf.generate(**post_data)
+            except:
+                pass
 
+            post_data.pop("confname")
+            try:
+                filename = self.pdf.generate(**post_data)
                 return "/download/" + filename
             except Exception, e:
-                pass
+                return render_template('error.html', error=str(e))
 
         @self.app.route("/download/<filename>", methods=['GET'])
         def download(filename):

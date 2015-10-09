@@ -1,0 +1,11 @@
+{
+    "host": "127.0.0.1",
+    "port": 5000,
+    "defaults": {
+	    "brewery": "",
+	    "labels_x": 3,
+	    "labels_y": 4,
+	    "cell_width": 60
+    },
+    "stored_configrations": "/opt/clg/history"
+}

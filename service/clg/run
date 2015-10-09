@@ -1,0 +1,7 @@
+CONF=/etc/clg.conf
+
+if [[ ! -f $CONF ]] ; then
+  cp /opt/clg/etc/clg.conf.sample $CONF
+fi
+
+exec python /opt/clg/clg.py -s $CONF

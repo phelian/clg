@@ -1,6 +1,12 @@
 {% extends "layout.html" %}
 {% block content %}
 
-Invalid request: {{ filename }} 
+{% if filename %}
+Invalid request: {{ filename }}
+{% endif %} 
+
+{% if error %}
+Error: {{ error }}
+{% error %} 
 
 {% endblock %}
