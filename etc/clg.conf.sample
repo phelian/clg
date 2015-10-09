@@ -7,5 +7,6 @@
 	    "labels_y": 4,
 	    "cell_width": 60
     },
+    "path": "/opt/clg",
     "stored_configrations": "/opt/clg/history"
 }

@@ -3,6 +3,8 @@ __author__ = 'Alexander Felix'
 import glob
 import os
 import json
+import fnmatch
+import re
 from os import path
 from flask import Flask, render_template, request, send_file
 
@@ -14,10 +16,26 @@ class Server():
         self.defaults = config.get("defaults", {})
         self.host = config.get("host", "127.0.0.1")
         self.port = config.get("port", 5000)
+        self.path = config.get("path", "./")
         self.input_path = config.get("stored_configrations", "history/json")
+        self.fonts = []
+        self._regexp = re.compile("^([a-z]*)_*(.*)\.ttf$")
+
+        for _, _, filenames in os.walk(self.path + "/fonts"):
+            for filename in fnmatch.filter(filenames, '*.ttf'):
+                self.add_font(filename)
+
+    def add_font(self, filename):
+        match = self._regexp.match(filename)
+        name = match.group(1)
+        style = match.group(2)
+
+        # Add all fonts here
+        self.pdf.add_font(name, style, self.path + "/fonts/" + filename, True)
+        self.fonts.append({"name": name, "style": style})
 
     def run(self):
-        self.app._static_folder = "./static"
+        self.app._static_folder = self.path + "/static"
         self.setupFlask()
         self.app.run(host=self.host, port=self.port)
 

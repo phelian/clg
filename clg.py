@@ -10,14 +10,8 @@ from server import Server
 
 
 def main(config=None, label=None):
-    fonts = []
     # Setup PDF Generator
     pdf = PDF("A4")
-
-    # Add all fonts here
-    pdf.add_font("cambria", "", "fonts/cambria.ttf", True)
-    pdf.add_font("cambria", "B", "fonts/cambria-bold.ttf", True)
-    fonts.append(["cambria", "cambria bold"])
 
     # Start initial page, always one
     pdf.add_page()
@@ -25,6 +19,9 @@ def main(config=None, label=None):
     # Command run from console with label input
     # Generate label and exit
     if label:
+        # Add all fonts here
+        pdf.add_font("cambria", "", "fonts/cambria.ttf", True)
+        pdf.add_font("cambria", "B", "fonts/cambria_B.ttf", True)
         pdf.generate(**label)
         return
 
