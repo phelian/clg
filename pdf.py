@@ -14,14 +14,14 @@ class PDF(FPDF):
         cell_width = float(cell_width)
         for _ in range(0, labels_y):
             for i in range(0, labels_x):
-                self.set_font("Cambria", 'B', size=12)
+                self.set_font("cambria", 'B', size=12)
                 self.cell(cell_width, 5, brewery, 0, 0)
 
             self.ln()
             for i in range(0,labels_x):
                 self.cell(cell_width, 5, name, 0, 0)
 
-            self.set_font("Cambria", '', size=12)
+            self.set_font("cambria", '', size=12)
             self.ln()
             self.ln()
             for i in range(0,labels_x):
